@@ -31,7 +31,7 @@ async function getCategories() {
 export default function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename="/sundae">
         <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
