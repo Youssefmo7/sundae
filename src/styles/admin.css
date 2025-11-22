@@ -1,0 +1,118 @@
+.admin-form {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 350px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px;
+}
+
+input, select {
+    padding: 12px;
+    outline: none;
+    border: 2px solid white;
+    border-radius: 12px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, .2);
+    width: 100%;
+}
+
+.fileInputContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.fileInputContainer p {
+    font-size: 13px;
+}
+
+.file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--sky-blue);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 13px;
+}
+
+.file-upload:hover {
+    background: var(--dark-skb);
+}
+
+  /* hide the real input */
+input[type="file"] {
+    display: none;
+}
+
+.input-container label {
+    position: absolute;
+    display: inline-block;
+    background-color: white;
+    top: 50%;
+    left: 10px;
+    font-size: 14px;
+    transform: translateY(-50%);
+    color: #999999;
+    transition: all ease 0.3s;
+}
+
+input:focus + label, #imageInput + label,
+input:not(:placeholder-shown) + label {
+    top: 1px;
+    left: 12px;
+    color: var(--sky-blue);
+    font-weight: bold;
+    padding: 0px 4px;
+    font-size: 12px;
+    background-color: white;
+}
+input:focus {
+    border: 2px solid #a6e1fc;
+    box-shadow: 0px 0px 4px 0px var(--sky-blue);
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+button { 
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    background-color: var(--sky-blue);
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--dark-skb);
+}
+
+.logout-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    background-color: var(--light-gray);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/*------------------------- login -----------------------*/
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+
+

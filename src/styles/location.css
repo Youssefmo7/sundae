@@ -1,0 +1,116 @@
+.location-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #7891B3, #B4C5D9, #F0F9FF, #D2DFEC);
+    height: 50vh;
+}
+
+.location-banner p {
+    color: var(--dark-blu);
+    font-family: 'Pattaya', sans-serif;
+    font-size: 40px;
+}
+
+.getInTouch {
+    color: var(--dark-blu);
+    font-family: 'Pattaya', sans-serif;
+    text-align: center;
+    font-size: 44px;
+    margin: 40px 0;
+    span {
+        color: var(--sky-blue);
+        font: inherit;
+    }
+}
+
+@media (max-width: 767px) {
+    .getInTouch {
+        font-size: 36px;
+    }
+    .location-form-container form {
+        display: flex;
+        justify-content: center;
+    }
+    .location-banner {
+        height: 30vh;
+    }
+}
+
+.location-form-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+    padding-left: 20px;
+    padding-right: 20px;
+    textarea {
+        outline: none;
+        border: 1px solid #B4C5D9;
+        border-radius: 12px;
+        padding: 6px 10px;
+        margin-bottom: 24px;
+        font-size: 12px;
+        width: 80%;
+        height: 100px;
+        resize: none;
+    }
+}
+
+.location-fields-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    gap: 16px;
+    margin-bottom: 24px;
+    .input-container {
+        width: 45%;
+        input {
+            outline: none;
+            border: 1px solid #B4C5D9;
+            border-radius: 12px;
+            padding: 6px 10px;
+            font-size: 12px;
+            width: 100%;
+        }
+        /* label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+            margin-left: 4px;
+            span {
+                color: red;
+                font: inherit;
+            }
+        } */
+    }
+}
+
+@media (max-width: 767px) {
+    .location-fields-container {
+        width: 90%;
+        .input-container {
+            width: 100%;
+        }
+    }
+}
+
+.textarea-container {
+    width: 100%;
+}
+
+.our-location {
+    margin-bottom: 18px;
+}
+
+.our-location p {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.our-location iframe {
+    height: 100px;
+    width: 80%;
+    border: 1px solid var(--sky-blue);
+    border-radius: 12px;
+}
+
