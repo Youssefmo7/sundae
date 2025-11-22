@@ -10,5 +10,5 @@ export default defineConfig({
       },
     }),
   ],
-  base: '/sundae'
+  base: '/my-app'
 })
