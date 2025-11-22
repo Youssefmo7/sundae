@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: [['babel-plugin-react-compiler']],
-        base: '/sundae'
+        plugins: [['babel-plugin-react-compiler']]
       },
     }),
   ],
+  base: 'sundae'
 })
