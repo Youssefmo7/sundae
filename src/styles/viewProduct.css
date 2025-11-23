@@ -80,9 +80,9 @@
 }
 @media (max-width: 480px) {
     .related-products .card {
-        width: 90%;
-        max-width: 90%;
-        min-width: 90%;
+        width: 40%;
+        max-width: 40%;
+        min-width: 40%;
     }
 }
 @media (min-width: 768px) and (max-width: 1024px) {
