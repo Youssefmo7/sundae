@@ -1,12 +1,18 @@
-.admin-form {
-    display: inline-flex;
+.admin-container {
+    display: flex;
+}
+
+form {
+    padding: 34px;
+    border: 1px solid #eee;
+    box-shadow: 1px 1px 1px 1px #eee;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    margin: 33px;
+    border-radius: 12px;
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 350px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    border-radius: 12px;
-    margin: 20px;
+    height: fit-content;
 }
 
 input, select {
@@ -46,9 +52,9 @@ input, select {
 }
 
   /* hide the real input */
-input[type="file"] {
+/* input[type="file"] {
     display: none;
-}
+} */
 
 .input-container label {
     position: absolute;
@@ -113,6 +119,10 @@ button:hover {
     height: 100vh;
 }
 
-
-
-
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 10px 0;
+}

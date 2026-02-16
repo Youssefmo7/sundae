@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, #7891B3, #B4C5D9, #F0F9FF, #D2DFEC);
-    height: 50vh;
+    flex-direction: column;
+    background: var(--background-banner);
+    height: 35vh;
 }
 @media (max-width: 900px) {
     .products-banner {
@@ -22,7 +23,7 @@
     font-family: 'Pattaya', sans-serif;
     text-align: center;
     font-size: 44px;
-    margin: 40px 0;
+    padding: 40px 0;
     span {
         color: var(--sky-blue);
         font: inherit;
@@ -37,11 +38,44 @@
     text-align: center;
 }
 
+.products {
+
+    background-image: url(../assets/products-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pages {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    padding-bottom: 24px;
+    gap: 10px;
+
+    div{
+        background-color: white;
+        padding-left: 11px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-weight: bold;
+        font-size: 16px;
+        padding-top: 4px;
+        color: var(--dark-blu);
+        cursor: pointer;
+    }
+    div:hover, .active-page {
+        background-color: var(--dark-blu);
+        color: white;
+    }
+}
+
 .products-cards {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
     padding: 20px 0;
 }
 

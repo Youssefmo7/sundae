@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="./src/styles/admin.css">
+    <link rel="stylesheet" href="./src/styles/index.css">
+    <link rel="shortcut icon" href="./src/assets/favicon.png" type="image/x-icon">
+</head>
+<body>
+    
+    <div class="admin-container">
+        <form id="add-product-form">
+          <h3 style="text-align: center;">Add New Product</h3><br>
+
+          <div class="input-container">
+            <input type="text" id="product-name" name="product-name" placeholder="" required />
+            <label for="product-name">Product Name</label>
+          </div>
+
+          <div class="input-container">
+            <input type="number" id="product-price" name="product-price" placeholder="" step="0.01" required />
+            <label for="product-price">Price</label>
+          </div>
+
+          <div class="input-container">
+            <!-- <label for="product-category">Category</label> -->
+            <select id="product-category" name="product-category" required>
+              <option value="">Select a category</option>
+            </select>
+          </div>
+
+          <div class="input-container">
+            <input type="text" id="product-description" name="product-description" placeholder="" required />
+            <label for="product-description">Description</label>
+          </div>
+
+          <div class="input-container">
+            <input type="text" id="product-slogan" name="product-slogan" placeholder="" required />
+            <label for="product-slogan">Slogan</label>
+          </div>
+
+          <div class="input-container">
+            <input type="file" id="product-image" />
+            <label>Product Image</label>
+          </div>
+
+          <h4 style="margin-top: 20px; margin-bottom: 10px;">Flavors</h4>
+          <div id="flavor-inputs">
+            <div class="flavor-group">
+              <div class="input-container">
+                <input type="text" placeholder="" class="flavor-name" required />
+                <label>Flavor Name</label>
+              </div>
+              <div class="input-container">
+                <input type="file" class="flavor-image" required />
+                <label>Flavor Image</label>
+              </div>
+            </div>
+          </div>
+
+          <button id="add-flavor-btn" type="button">+ Add Flavor</button>
+          <button type="submit" style="margin-top: 12px;">Add Product</button>
+        </form>
+
+        <form id="add-category-form">
+          <h3 style="text-align: center;">Add New Category</h3><br>
+
+          <div class="input-container">
+            <input type="text" id="category-name" name="category-name" placeholder="" required />
+            <label for="category-name">Category Name</label>
+          </div>
+
+          <div class="input-container">
+            <input type="file" id="category-image" required />
+            <label>Category Image</label>
+          </div>
+
+          <button type="submit" style="margin-top: 12px;">Add Category</button>
+        </form>
+    </div>
+
+    <script type="module" src="./src/pages/Admin.js"></script>
+</body>
+</html>
+
+
+<!-- position: absolute;
+width: 238.55px;
+height: 62px;
+left: 620px;
+top: 492px;
+
+background: linear-gradient(90deg, #7FD1F6 0%, #012653 100%);
+box-shadow: 0px 0px 30px #7FD1F6;
+border-radius: 30px; -->
