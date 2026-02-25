@@ -6,7 +6,7 @@ import { Cloudinary } from "@cloudinary/url-gen";
 try {
   await account.get();
 } catch(err) {
-  window.location.href = 'login.html';
+  window.location.href = './../../login.html';
 }
 
 (async () => {

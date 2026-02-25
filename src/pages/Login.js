@@ -11,7 +11,7 @@ form.addEventListener('submit', async (e) => {
     if(login.success)
     {
       localStorage.setItem('user', JSON.stringify(login.user));
-      window.location.href = './admin.html';
+      window.location.href = './../../admin.html';
     }
     else {
       document.querySelector('.error-message').textContent = login.error;

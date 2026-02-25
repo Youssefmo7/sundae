@@ -230,18 +230,33 @@ header ul li:hover, header ul li:focus {
   transform: translateX(-50%);
   display: flex;
   gap: 8px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .dot {
   width: 10px;
   height: 10px;
-  background: #aaa;
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   cursor: pointer;
 }
 
 .dot.active {
   background: white;
+}
+
+@media (max-width: 991px) {
+    .dots {
+        bottom: 6px;
+        gap: 6px;
+        padding: 6px 7px;
+    }
+    .dot {
+        width: 6px;
+        height: 6px;
+    }
 }
 
 /*------------------------------------- slider -------------------------------------*/
