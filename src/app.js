@@ -8,7 +8,7 @@ import { About } from './pages/About.js';
 
 // Simple router
 function getCurrentRoute() {
-  const path = window.location.pathname.replace('/sundae', '') || '/';
+  const path = window.location.pathname;
   const hash = window.location.hash.substring(1);
   return hash || path;
 }
