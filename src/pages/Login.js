@@ -3,7 +3,7 @@ import { account } from '../appwrite.js';
 
 try {
   await account.get();
-  window.location.href = '../../admin.html';
+  window.location.href = './../../admin.html';
 } catch(err) {
   console.log("no account");
 }
