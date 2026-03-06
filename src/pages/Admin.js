@@ -1,31 +1,60 @@
 import auth from '../utils/auth.js';
 import { tablesDb, account } from '../appwrite.js';
 import { ID } from 'appwrite';
-import { Cloudinary } from "@cloudinary/url-gen";
 
 try {
   await account.get();
-} catch(err) {
+} catch (err) {
   window.location.href = './../../login.html';
 }
 
-(async () => {
-  const categories = await tablesDb.listRows({
-    databaseId: import.meta.env.VITE_DATABASE_ID,
-    tableId: import.meta.env.VITE_TABLE_ID_CATEGORIES
-  }).then(res => res.rows);
-  console.log(categories);
+const productCategorySelect = document.getElementById('product-category');
+const statProducts = document.getElementById('stat-products');
+const statCategories = document.getElementById('stat-categories');
+const statusMessage = document.getElementById('status-message');
+const dashboardDate = document.getElementById('dashboard-date');
 
-  let categorySelect = document.getElementById('product-category');
-  categorySelect.innerHTML += (categories.map(cat => `<option value="${cat.$id}">${cat.name}</option>`).join(''));
-})();
+function showStatus(message, type = 'success') {
+  if (!statusMessage) return;
 
-const cloud = new Cloudinary({
-  cloud: {
-    cloudName: import.meta.env.VITE_CLOUD_NAME
-  }
-});
+  statusMessage.className = `status-message show ${type}`;
+  statusMessage.textContent = message;
 
+  clearTimeout(showStatus.timeoutId);
+  showStatus.timeoutId = setTimeout(() => {
+    statusMessage.className = 'status-message';
+    statusMessage.textContent = '';
+  }, 3200);
+}
+
+function updateDashboardDate() {
+  if (!dashboardDate) return;
+
+  dashboardDate.textContent = new Date().toLocaleString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
+function createFlavorGroupMarkup(canRemove = false) {
+  return `
+    <div class="flavor-group">
+      <div class="input-container">
+        <input type="text" placeholder=" " class="flavor-name" required />
+        <label>Flavor Name</label>
+      </div>
+      <div class="input-container file-input-container">
+        <input type="file" accept="image/*" class="flavor-image" required />
+        <label class="fixed-label">Flavor Image</label>
+      </div>
+      ${canRemove ? '<button type="button" class="btn remove-flavor-btn">Remove</button>' : ''}
+    </div>
+  `;
+}
 
 async function uploadImageToCloudinary(file) {
   const formData = new FormData();
@@ -48,10 +77,8 @@ async function uploadImageToCloudinary(file) {
   return data.secure_url;
 }
 
-
 async function saveProductToAppwrite(productData, flavors) {
   try {
-    console.log("flavors: ", flavors);
     const product = await tablesDb.createRow({
       databaseId: import.meta.env.VITE_DATABASE_ID,
       tableId: import.meta.env.VITE_TABLE_ID_PRODUCTS,
@@ -72,7 +99,58 @@ async function saveProductToAppwrite(productData, flavors) {
     throw new Error(`Failed to save product: ${error.message}`);
   }
 }
-  // Handle logout
+
+async function fetchCategories() {
+  const response = await tablesDb.listRows({
+    databaseId: import.meta.env.VITE_DATABASE_ID,
+    tableId: import.meta.env.VITE_TABLE_ID_CATEGORIES
+  });
+
+  return response;
+}
+
+async function fetchProducts() {
+  const response = await tablesDb.listRows({
+    databaseId: import.meta.env.VITE_DATABASE_ID,
+    tableId: import.meta.env.VITE_TABLE_ID_PRODUCTS
+  });
+
+  return response;
+}
+
+function renderCategoryOptions(categories) {
+  if (!productCategorySelect) return;
+
+  const optionHtml = categories
+    .map((cat) => `<option value="${cat.$id}">${cat.name}</option>`)
+    .join('');
+
+  productCategorySelect.innerHTML = '<option value="">Select a category</option>' + optionHtml;
+}
+
+function updateStats({ productsTotal, categoriesTotal }) {
+  if (statProducts) statProducts.textContent = String(productsTotal ?? 0);
+  if (statCategories) statCategories.textContent = String(categoriesTotal ?? 0);
+}
+
+async function loadDashboardData() {
+  try {
+    const [productsRes, categoriesRes] = await Promise.all([fetchProducts(), fetchCategories()]);
+
+    renderCategoryOptions(categoriesRes.rows || []);
+    updateStats({
+      productsTotal: productsRes.total ?? productsRes.rows?.length ?? 0,
+      categoriesTotal: categoriesRes.total ?? categoriesRes.rows?.length ?? 0
+    });
+  } catch (error) {
+    console.error('Failed to load dashboard data:', error);
+    showStatus('Failed to load dashboard data.', 'error');
+  }
+}
+
+updateDashboardDate();
+loadDashboardData();
+
 const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', async () => {
@@ -80,103 +158,87 @@ if (logoutBtn) {
   });
 }
 
-// Handle add flavor button
 const addFlavorBtn = document.getElementById('add-flavor-btn');
-if (addFlavorBtn) {
+const flavorInputs = document.getElementById('flavor-inputs');
+
+if (addFlavorBtn && flavorInputs) {
   addFlavorBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const flavorInputs = document.getElementById('flavor-inputs');
-    flavorInputs.innerHTML += `
-      <div class="flavor-group">
-        <div class="input-container">
-          <input type="text" placeholder="" class="flavor-name" required />
-          <label>Flavor Name</label>
-        </div>
-        <div class="input-container">
-          <input type="file" accept="image/*" class="flavor-image" required />
-          <label>Flavor Image</label>
-        </div>
-      </div>
-    `;
+    flavorInputs.insertAdjacentHTML('beforeend', createFlavorGroupMarkup(true));
+  });
+
+  flavorInputs.addEventListener('click', (e) => {
+    const button = e.target.closest('.remove-flavor-btn');
+    if (!button) return;
+
+    const group = button.closest('.flavor-group');
+    if (group) group.remove();
   });
 }
 
-// Handle form submission
 const addProductForm = document.getElementById('add-product-form');
 if (addProductForm) {
   addProductForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Get product data
-    const pImageUrl = await uploadImageToCloudinary(document.getElementById('product-image').files[0]);
-    const productData = {
-      name: document.getElementById('product-name').value,
-      category: document.getElementById('product-category').value,
-      description: document.getElementById('product-description').value,
-      price: document.getElementById('product-price').value,
-      image: pImageUrl,
-      slogan: document.getElementById('product-slogan').value
-    };
+    const productImageInput = document.getElementById('product-image');
+    if (!productImageInput.files?.[0]) {
+      showStatus('Please choose a product image.', 'error');
+      return;
+    }
 
-    // Get flavor data
-    const flavorGroups = document.querySelectorAll('.flavor-group');
-    const flavors = [];
-
-    // Show loading state
     const submitBtn = addProductForm.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Uploading...';
 
     try {
-      // Process each flavor
+      const pImageUrl = await uploadImageToCloudinary(productImageInput.files[0]);
+      const productData = {
+        name: document.getElementById('product-name').value,
+        category: document.getElementById('product-category').value,
+        description: document.getElementById('product-description').value,
+        price: document.getElementById('product-price').value,
+        image: pImageUrl,
+        slogan: document.getElementById('product-slogan').value
+      };
+
+      const flavorGroups = document.querySelectorAll('.flavor-group');
+      const flavors = [];
+
       for (const group of flavorGroups) {
         const nameInput = group.querySelector('.flavor-name');
         const imageInput = group.querySelector('.flavor-image');
-        console.log("nameInput: ", nameInput);
-        console.log("imageInput: ", imageInput);
 
-        if (nameInput.value && imageInput.files.length > 0) {
-          // Upload image to Cloudinary
-          const imageUrl = await uploadImageToCloudinary(imageInput.files[0]);
-
-          flavors.push({
-            name: nameInput.value,
-            imageUrl: imageUrl
-          });
+        if (!nameInput.value || imageInput.files.length === 0) {
+          continue;
         }
+
+        const imageUrl = await uploadImageToCloudinary(imageInput.files[0]);
+
+        flavors.push({
+          name: nameInput.value,
+          imageUrl
+        });
       }
 
-      // Validate that we have at least one flavor
       if (flavors.length === 0) {
-        alert('Please add at least one flavor with an image');
+        showStatus('Please add at least one flavor with an image.', 'error');
         return;
       }
 
-      // Save to Appwrite
       await saveProductToAppwrite(productData, flavors);
-
-      // Success message and reset form
-      alert('Product added successfully!');
       addProductForm.reset();
 
-      // Remove extra flavor inputs
-      const flavorInputs = document.getElementById('flavor-inputs');
-      flavorInputs.innerHTML = `
-        <div class="flavor-group">
-          <div class="input-container">
-            <input type="text" placeholder="" class="flavor-name" required />
-            <label>Flavor Name</label>
-          </div>
-          <div class="input-container">
-            <input type="file" accept="image/*" class="flavor-image" required />
-            <label>Flavor Image</label>
-          </div>
-        </div>
-      `;
+      if (flavorInputs) {
+        flavorInputs.innerHTML = createFlavorGroupMarkup(false);
+      }
+
+      await loadDashboardData();
+      showStatus('Product added successfully.');
     } catch (error) {
       console.error('Error adding product:', error);
-      alert(`Failed to add product: ${error.message}`);
+      showStatus(`Failed to add product: ${error.message}`, 'error');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
@@ -185,24 +247,44 @@ if (addProductForm) {
 }
 
 const addCategoryForm = document.getElementById('add-category-form');
-addCategoryForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
+if (addCategoryForm) {
+  addCategoryForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  const imageInput = document.getElementById('category-image');
+    const submitBtn = addCategoryForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Uploading...';
 
-  // Upload image to Cloudinary
-  const imageUrl = await uploadImageToCloudinary(imageInput.files[0]);
-  const categoryData = {
-    name: document.getElementById('category-name').value,
-    image: imageUrl
-  };
+    try {
+      const imageInput = document.getElementById('category-image');
+      if (!imageInput.files?.[0]) {
+        showStatus('Please choose a category image.', 'error');
+        return;
+      }
 
-  const category = await tablesDb.createRow({
-    databaseId: import.meta.env.VITE_DATABASE_ID,
-    tableId: import.meta.env.VITE_TABLE_ID_CATEGORIES,
-    rowId: ID.unique(),
-    data: categoryData
+      const imageUrl = await uploadImageToCloudinary(imageInput.files[0]);
+      const categoryData = {
+        name: document.getElementById('category-name').value,
+        image: imageUrl
+      };
+
+      await tablesDb.createRow({
+        databaseId: import.meta.env.VITE_DATABASE_ID,
+        tableId: import.meta.env.VITE_TABLE_ID_CATEGORIES,
+        rowId: ID.unique(),
+        data: categoryData
+      });
+
+      addCategoryForm.reset();
+      await loadDashboardData();
+      showStatus('Category added successfully.');
+    } catch (error) {
+      console.error('Error adding category:', error);
+      showStatus(`Failed to add category: ${error.message}`, 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
-
-  return category;
-})
+}

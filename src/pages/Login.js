@@ -1,4 +1,12 @@
 import auth from '../utils/auth.js';
+import { account } from '../appwrite.js';
+
+try {
+  await account.get();
+  window.location.href = '../../admin.html';
+} catch(err) {
+  console.log("no account");
+}
 
 let form = document.getElementById('login-form');
 form.addEventListener('submit', async (e) => {

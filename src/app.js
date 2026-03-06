@@ -32,7 +32,7 @@ export async function renderPage() {
   root.appendChild(appDiv);
 
   // Check authentication for protected routes
-  if (route === '/admin' && !localStorage.getItem('user')) {
+  if (route === '/admin') {
     window.location.href = './../login.html';
     return;
   }

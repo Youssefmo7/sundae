@@ -19,7 +19,7 @@ async function loginUser(email, password) {
 
 async function logoutUser() {
   try {
-    await account.deleteSession('current');
+    await account.deleteSession({sessionId: 'current'});
     localStorage.removeItem('user');
     window.location.href = 'login.html';
   } catch (error) {
