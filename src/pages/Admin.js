@@ -2,11 +2,11 @@ import auth from '../utils/auth.js';
 import { tablesDb, account } from '../appwrite.js';
 import { ID } from 'appwrite';
 
-try {
-  await account.get();
-} catch (err) {
-  window.location.href = './../../login.html';
-}
+// try {
+//   await account.get();
+// } catch (err) {
+//   window.location.href = './../../login.html';
+// }
 
 const productCategorySelect = document.getElementById('product-category');
 const statProducts = document.getElementById('stat-products');
