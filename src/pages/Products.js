@@ -11,8 +11,8 @@ async function renderPage(n) {
   if(products) {
     products = JSON.parse(products);
   } else {
-    console.log('session');
-    products = (await getProducts(5, (n-1) * 5)).rows;
+    // console.log('session');
+    products = (await getProducts(12, (n-1) * 12)).rows;
     sessionStorage.setItem(`products_page${n}`, JSON.stringify(products));
   }
   // console.log(products);

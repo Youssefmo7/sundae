@@ -6,6 +6,18 @@ import { Product } from "./pages/Product.js";
 import { Location } from "./pages/Location.js";
 import { About } from './pages/About.js';
 
+// Import appwrite
+import { tablesDb } from "./appwrite.js";
+import { Query } from "appwrite";
+
+// const products = await tablesDb.listRows({
+//   databaseId: import.meta.env.VITE_DATABASE_ID,
+//   tableId: import.meta.env.VITE_TABLE_ID_PRODUCTS,
+//   queries: [
+//     Query.select(["$id", "name", "image"])
+//   ]
+// })
+
 // Simple router
 function getCurrentRoute() {
   const path = window.location.pathname;
@@ -56,11 +68,20 @@ export async function renderPage() {
     default:
       // Check if it's a product route /product/:id
       if (route.startsWith('/products/')) {
-        const productId = route.split('/')[3];
-        console.log(route.split('/'));
-        const product = products.find(p => p.$id === productId);
+        const productId = route.split('/')[2];
+        // console.log(route.split('/'));
+        // console.log(productId);
+        let product = await tablesDb.listRows({
+          databaseId: import.meta.env.VITE_DATABASE_ID,
+          tableId: import.meta.env.VITE_TABLE_ID_PRODUCTS,
+          queries: [
+            Query.equal("$id", productId)
+          ],
+          total: false
+        });
+        product = product.rows[0];
         if (product) {
-          appDiv.innerHTML = Product({ product });
+          appDiv.innerHTML = await Product({ product });
         } else {
           appDiv.innerHTML = '<h1>Product not found</h1>';
         }
