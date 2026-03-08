@@ -47,6 +47,10 @@ function createFlavorGroupMarkup(canRemove = false) {
         <input type="text" placeholder=" " class="flavor-name" required />
         <label>Flavor Name</label>
       </div>
+      <div class="input-container">
+        <input type="text" placeholder=" " class="flavor-description" required />
+        <label>Flavor Description</label>
+      </div>
       <div class="input-container file-input-container">
         <input type="file" accept="image/*" class="flavor-image" required />
         <label class="fixed-label">Flavor Image</label>
@@ -208,9 +212,10 @@ if (addProductForm) {
 
       for (const group of flavorGroups) {
         const nameInput = group.querySelector('.flavor-name');
+        const descriptionInput = group.querySelector('.flavor-description');
         const imageInput = group.querySelector('.flavor-image');
 
-        if (!nameInput.value || imageInput.files.length === 0) {
+        if (!nameInput.value || !descriptionInput.value || imageInput.files.length === 0) {
           continue;
         }
 
@@ -218,6 +223,7 @@ if (addProductForm) {
 
         flavors.push({
           name: nameInput.value,
+          description: descriptionInput.value,
           imageUrl
         });
       }
