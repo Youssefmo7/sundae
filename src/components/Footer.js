@@ -12,10 +12,7 @@ export function Footer() {
           <div class="logo">
             <a href="#/"><img src="${logo}" alt="Sundae logo" /></a>
           </div>
-          <p>
-            Premium ice cream crafted with rich ingredients and bold flavors.
-            Follow us for updates, seasonal drops, and special offers.
-          </p>
+          <p>6th Million Industrial Zone, 10th of Ramadan City, Sharqia, Egypt <br> 10th of Ramadan City, under El Talta Bridge</p>
         </div>
 
         <div class="social-icons">
