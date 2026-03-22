@@ -10,7 +10,7 @@ export function Footer() {
       <div class="social">
         <div class="info">
           <div class="logo">
-            <img src="${logo}" alt="Sundae logo" />
+            <a href="#/"><img src="${logo}" alt="Sundae logo" /></a>
           </div>
           <p>
             Premium ice cream crafted with rich ingredients and bold flavors.
@@ -29,9 +29,20 @@ export function Footer() {
       </div>
 
       <div class="contact">
-        <p><i class="fa-solid fa-mobile-screen"></i>0100024242302</p>
-        <p><i class="fa-solid fa-envelope"></i>sundae@me.org</p>
-        <p><i class="fa-regular fa-copyright"></i>${year} Sundae</p>
+        <p class="contact-title">Contact Us</p>
+        <div class="contact-item">
+          <span class="contact-label">Sales Customer Service</span>
+          <a class="contact-value" href="tel:01066245666">01066245666</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Complaints Customer Service</span>
+          <a class="contact-value" href="tel:01211604000">01211604000</a>
+        </div>
+        <p class="contact-line">
+          <i class="fa-solid fa-envelope"></i>
+          <a class="contact-value" href="mailto:sundaeice25@gmail.com">sundaeice25@gmail.com</a>
+        </p>
+        <p class="contact-line"><i class="fa-regular fa-copyright"></i>${year} Sundae</p>
       </div>
     </footer>
   `;

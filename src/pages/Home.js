@@ -201,7 +201,7 @@ export function Home() {
       <div class="follow-us">
         <div class="container">
           <div class="follow-images">
-            <h2>Follow Us on <span>Instagram</span></h2>
+            <h2>Follow Us on <a href="https://www.instagram.com/ice_cream_sundae" target="_blank" style="font:inherit; text-decoration: none;"><span>Instagram</span></a></h2>
             <p>Join our Instagram community for updates, special deals, and more!</p>
             <div class="imgs">
               <div><img src="${followImage1}" alt="Instagram post 1" /></div>

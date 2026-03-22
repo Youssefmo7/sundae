@@ -5,7 +5,7 @@ const logo = "https://res.cloudinary.com/debrtvbnc/image/upload/v1774183595/logo
 export function Header() {
   return `
     <header>
-      <div class="logo"><img src="${logo}" alt="logo" /></div>
+      <div class="logo"><a href="#/"><img src="${logo}" alt="logo" /></a></div>
       <ul>
         <li><a href="#/"><i class="fa-solid fa-house"></i>Home</a></li>
         <li><a href="#/about"><i class="fa-solid fa-circle-info"></i>About Us</a></li>

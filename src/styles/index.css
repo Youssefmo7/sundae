@@ -698,8 +698,7 @@ footer .social {
 }
 
 .social .info .logo {
-  width: 120px;
-  min-width: 120px;
+  width: 200px;
 }
 
 .social .info p {
@@ -735,9 +734,9 @@ footer .social {
   color: var(--sky-blue);
 }
 
-footer .contact {
-  flex: 0 1 280px;
-}
+/* footer .contact { */
+  /* flex: 0 1 280px; */
+/* } */
 
 .contact p {
   margin-bottom: 8px;
@@ -745,6 +744,40 @@ footer .contact {
 
 .contact i {
   margin-right: 12px;
+}
+
+.contact-title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  gap: 12px;
+  padding: 6px 0;
+  color: #d5deea;
+  font-size: 0.95rem;
+}
+
+.contact-label {
+  max-width: 200px;
+}
+
+.contact-value {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.contact-value:hover {
+  color: var(--sky-blue);
+}
+
+.contact-line {
+  color: #d5deea;
 }
 
 @media (max-width: 991px) {
@@ -764,10 +797,10 @@ footer .contact {
     gap: 16px;
   }
 
-  .social .info .logo {
+  /* .social .info .logo {
     width: 96px;
     min-width: 96px;
-  }
+  } */
 }
 
 @media (max-width: 767px) {
@@ -782,10 +815,10 @@ footer .contact {
     gap: 12px;
   }
 
-  .social .info .logo {
+  /* .social .info .logo {
     width: 84px;
     min-width: 84px;
-  }
+  } */
 
   .social .info p {
     max-width: 100%;
@@ -799,6 +832,16 @@ footer .contact {
 
   .social-icons .icons a {
     font-size: 18px;
+  }
+
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .contact-label {
+    max-width: none;
   }
 
   .contact i {
