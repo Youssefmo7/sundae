@@ -29,7 +29,8 @@
 }
 
 .about-dark {
-  background-image: url(../assets/products-background.png);
+  background-image: url(https://res.cloudinary.com/debrtvbnc/image/upload/v1774183654/products-background_wk7cfk.png);
+    /* background-image: url(../assets/products-background.png); */
   background-repeat: no-repeat;
   background-size: cover;
 }
