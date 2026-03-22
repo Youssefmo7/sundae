@@ -20,7 +20,7 @@ async function loginUser(email, password) {
 async function logoutUser() {
   try {
     await account.deleteSession({sessionId: 'current'});
-    localStorage.removeItem('user');
+    localStorage.removeItem('sundae_user');
     window.location.href = 'login.html';
   } catch (error) {
     console.error("Logout failed:", error);

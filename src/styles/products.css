@@ -45,6 +45,53 @@
     background-size: cover;
 }
 
+.products-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 0 10px;
+    flex-wrap: wrap;
+}
+
+.products-search {
+    position: relative;
+    width: calc(100% - 220px);
+    /* flex: 1 1 280px; */
+    /* max-width: 420px; */
+}
+
+.products-search input {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border-radius: 999px;
+    border: 1px solid #e6e6e6;
+    outline: none;
+    font-size: 14px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.products-search i {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dark-blu);
+    font-size: 14px;
+}
+
+.products-filter select {
+    min-width: 200px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid #e6e6e6;
+    font-size: 14px;
+    background: #fff;
+    color: var(--dark-blu);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
 .pages {
     display: flex;
     justify-content: center;
@@ -90,8 +137,60 @@
 /*------------------------------------- Products -------------------------------------*/
 
 
+@media (max-width: 900px) {
+    .products-controls {
+        justify-content: center;
+    }
+
+    .products-search {
+        width: 100%;
+    }
+
+    .products-filter select {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 700px) {
+    .products-cards {
+        gap: 20px;
+    }
+
+    .pages {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 520px) {
+    .products-banner p {
+        font-size: 32px;
+    }
+
+    .products-search input,
+    .products-filter select {
+        font-size: 13px;
+        padding: 10px 36px 10px 14px;
+    }
+
+    .products-filter select {
+        padding: 10px 12px;
+    }
+}
+
 @media (max-width: 767px) {
     .chooseUrFav {
         font-size: 32px;
+    }
+
+    .products-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .products-filter select,
+    .products-search input {
+        width: 100%;
+        max-width: 100%;
     }
 }

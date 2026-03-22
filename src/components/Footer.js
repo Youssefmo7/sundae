@@ -19,9 +19,9 @@ export function Footer() {
         <div class="social-icons">
           <p>Follow Us</p>
           <div class="icons">
-            <a href="#" aria-label="Sundae on Facebook"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" aria-label="Sundae on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="#" aria-label="Sundae on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/sundaeicee" target="blank" aria-label="Sundae on Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.tiktok.com/@sundaeicecream.eg" target="blank" aria-label="Sundae on TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/ice_cream_sundae" target="blank" aria-label="Sundae on Instagram"><i class="fa-brands fa-instagram"></i></a>
           </div>
         </div>
       </div>

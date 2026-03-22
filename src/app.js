@@ -3,12 +3,13 @@
 import { Home, HomeFunctions } from "./pages/Home.js";
 import * as Products from "./pages/Products.js";
 import { Product } from "./pages/Product.js";
-import { Location } from "./pages/Location.js";
+import { Location, LocationFunctions } from "./pages/Location.js";
 import { About } from './pages/About.js';
 
 // Import appwrite
 import { tablesDb } from "./appwrite.js";
 import { Query } from "appwrite";
+import { ensureInitialData } from "./utils/dataCache.js";
 
 // const products = await tablesDb.listRows({
 //   databaseId: import.meta.env.VITE_DATABASE_ID,
@@ -24,6 +25,7 @@ function getCurrentRoute() {
   const hash = window.location.hash.substring(1);
   return hash || path;
 }
+
 
 export async function renderPage() {
   const route = getCurrentRoute();
@@ -61,6 +63,7 @@ export async function renderPage() {
       break;
     case '/location':
       appDiv.innerHTML = Location();
+      LocationFunctions();
       break;
     case '/about':
       appDiv.innerHTML = About();
@@ -115,5 +118,6 @@ function addNavigationListeners() {
 
 // Initialize app
 export async function initApp() {
+  await ensureInitialData();
   renderPage();
 }

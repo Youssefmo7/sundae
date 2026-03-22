@@ -1,15 +1,13 @@
-import { Query } from "appwrite"
-import { tablesDb } from "../appwrite.js"
+import { getCachedProducts } from "./dataCache.js";
 
 export default async function getProducts(limit, offset = 0) {
-    const res = tablesDb.listRows({
-        databaseId: import.meta.env.VITE_DATABASE_ID,
-        tableId: import.meta.env.VITE_TABLE_ID_PRODUCTS,
-        queries: [
-            Query.limit(limit),
-            Query.offset(offset)
-        ]
-    }).then(ret => ret);
+    const all = await getCachedProducts();
+    const start = Math.max(0, offset);
+    const end = Math.max(start, start + (limit || 0));
+    const rows = limit ? all.slice(start, end) : all.slice(start);
 
-    return res;
+    return {
+        rows,
+        total: all.length
+    };
 }

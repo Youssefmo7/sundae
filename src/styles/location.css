@@ -23,6 +23,36 @@
     padding: 40px;
 }
 
+.location-toast {
+    position: fixed;
+    top: 24px;
+    right: 50%;
+    color: #fff;
+    background: transparent;
+    padding: 18px 24px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-10px);
+    transform: translateX(50%);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.location-toast.show {
+    opacity: 1;
+    transform: translateY(110);
+    transform: translateX(50%);
+    background: #28da31;
+}
+
+.location-toast.error {
+    background: #d64545;
+}
+
 .getInTouch {
     color: var(--dark-blu);
     font-family: 'Pattaya', sans-serif;

@@ -12,6 +12,7 @@ import MainButton from "../components/MainButton.js";
 
 import p1 from '../assets/p1.png'
 import getProducts from "../utils/getProducts.js";
+import { getCachedCategories } from "../utils/dataCache.js";
 
 export async function HomeFunctions() {
   const carousel = document.querySelector(".carousel")
@@ -86,28 +87,33 @@ export async function HomeFunctions() {
   const showProducts = (await getProducts(8)).rows;
   // console.log(showProducts);
   document.querySelector('.home-products-cards').innerHTML = showProducts.map(product => Card(product)).join('');
-}
 
-const showCategories = `
-    <div class="card">
-      <img src="${p1}" alt="" />
-      <h3>Trend Vanilla</h3>
-      <p>A new Trend vanilla with cone and chocolate and chips.</p>
-      <a href="#/products/111"><button>View</button></a>
-    </div>
-    <div class="card">
-      <img src="${p1}" alt="" />
-      <h3>Trend Vanilla</h3>
-      <p>A new Trend vanilla with cone and chocolate and chips.</p>
-      <a href="#/products/111"><button>View</button></a>
-    </div>
-    <div class="card">
-      <img src="${p1}" alt="" />
-      <h3>Trend Vanilla</h3>
-      <p>A new Trend vanilla with cone and chocolate and chips.</p>
-      <a href="#/products/111"><button>View</button></a>
-    </div>
-  `;
+  const categories = await getCachedCategories();
+  const categoriesContainer = document.querySelector('.categ-cards');
+  if (categoriesContainer) {
+    if (categories.length) {
+      categoriesContainer.innerHTML = categories
+        .map((category) => {
+          const image = category.image || p1;
+          const name = category.name || 'Category';
+          return `
+            <div class="category-card">
+              <div class="category-image">
+                <img src="${image}" alt="${name}" />
+              </div>
+              <a class="category-btn" href="#/products">
+                <span>${name}</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+            </div>
+          `;
+        })
+        .join('');
+    } else {
+      categoriesContainer.innerHTML = '<p class="p-desc">No categories available.</p>';
+    }
+  }
+}
 
 export function Home() {
   return `
@@ -131,16 +137,14 @@ export function Home() {
             <div class="left">
               <h3>The story of Sundae Ice Cream</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur. Enim nibh gravida morbi
-                nisl magnis id aliquet. Et euismod nisi donec egestas fames
-                urna. Lectus ut quam massa viverra vel enim. Interdum faucibus
-                facilisis turpis fermentum.
+                Established in April 2019, Pharma Click for Food Industries 
+                is a leading Egyptian company dedicated to redefining the 
+                ice cream experience. Under our flagship brand, Sundae, we 
+                combine passion with precision to deliver high-quality products 
+                that cater to the diverse tastes of the Egyptian and Arab markets.
               </p>
               <p>
-                Lorem ipsum dolor sit amet consectetur. Enim nibh gravida morbi
-                nisl magnis id aliquet. Et euismod nisi donec egestas fames
-                urna. Lectus ut quam massa viverra vel enim. Interdum faucibus
-                facilisis turpis fermentum.
+                Our mission is simple: to provide a unique and happy consumer experience
               </p>
             </div>
             <div class="right"><img src="${storyImage}" alt="Our story" /></div>
@@ -173,7 +177,7 @@ export function Home() {
       <div class="categories">
         <div class="container">
           <h2>Choose your favorite ice cream category</h2>
-          <div class="categ-cards">${showCategories}</div>
+          <div class="categ-cards"></div>
         </div>
       </div>
       <div class="home-products">

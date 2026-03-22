@@ -18,7 +18,7 @@ form.addEventListener('submit', async (e) => {
     const login = await auth.loginUser(email, password);
     if(login.success)
     {
-      localStorage.setItem('user', JSON.stringify(login.user));
+      localStorage.setItem('sundae_user', JSON.stringify(login.user));
       window.location.href = './../../admin.html';
     }
     else {

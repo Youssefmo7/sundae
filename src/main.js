@@ -5,6 +5,7 @@ import "./styles/all.min.css";
 import "./styles/products.css";
 import "./styles/location.css";
 import "./styles/viewProduct.css";
+import "./styles/about.css";
 // app
 import { initApp } from "./app.js";
 

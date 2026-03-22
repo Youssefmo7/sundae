@@ -1,6 +1,7 @@
 import auth from '../utils/auth.js';
 import { tablesDb, account } from '../appwrite.js';
-import { ID } from 'appwrite';
+import { ID, Query } from 'appwrite';
+import { getCachedCategories, getCachedProducts } from '../utils/dataCache.js';
 
 // try {
 //   await account.get();
@@ -13,6 +14,7 @@ const statProducts = document.getElementById('stat-products');
 const statCategories = document.getElementById('stat-categories');
 const statusMessage = document.getElementById('status-message');
 const dashboardDate = document.getElementById('dashboard-date');
+const messagesList = document.getElementById('messages-list');
 
 function showStatus(message, type = 'success') {
   if (!statusMessage) return;
@@ -25,6 +27,15 @@ function showStatus(message, type = 'success') {
     statusMessage.className = 'status-message';
     statusMessage.textContent = '';
   }, 3200);
+}
+
+function escapeHtml(value = '') {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 }
 
 function updateDashboardDate() {
@@ -105,21 +116,54 @@ async function saveProductToAppwrite(productData, flavors) {
 }
 
 async function fetchCategories() {
+  const cached = await getCachedCategories();
+  return {
+    rows: cached,
+    total: cached.length
+  };
+}
+
+async function fetchProducts() {
+  const cached = await getCachedProducts();
+  return {
+    rows: cached,
+    total: cached.length
+  };
+}
+
+async function fetchMessages() {
   const response = await tablesDb.listRows({
     databaseId: import.meta.env.VITE_DATABASE_ID,
-    tableId: import.meta.env.VITE_TABLE_ID_CATEGORIES
+    tableId: import.meta.env.VITE_TABLE_ID_MESSAGES,
+    queries: [Query.orderDesc('$createdAt'), Query.limit(100)]
   });
 
   return response;
 }
 
-async function fetchProducts() {
-  const response = await tablesDb.listRows({
-    databaseId: import.meta.env.VITE_DATABASE_ID,
-    tableId: import.meta.env.VITE_TABLE_ID_PRODUCTS
-  });
+function renderMessages(messages) {
+  if (!messagesList) return;
 
-  return response;
+  if (!messages.length) {
+    messagesList.innerHTML = '<p class="messages-empty">No messages yet.</p>';
+    return;
+  }
+
+  messagesList.innerHTML = messages
+    .map((msg) => `
+      <article class="message-card" data-id="${msg.$id}">
+        <div class="message-header">
+          <div>
+            <h4>${escapeHtml(msg.name || 'Anonymous')}</h4>
+            <p>${escapeHtml(msg.email || '')}</p>
+            <p>${escapeHtml(msg.whatsapp || '')}</p>
+          </div>
+          <button class="btn btn-danger message-delete" data-id="${msg.$id}" type="button">Delete</button>
+        </div>
+        <p class="message-body">${escapeHtml(msg.message || '')}</p>
+      </article>
+    `)
+    .join('');
 }
 
 function renderCategoryOptions(categories) {
@@ -152,8 +196,19 @@ async function loadDashboardData() {
   }
 }
 
+async function loadMessages() {
+  try {
+    const messagesRes = await fetchMessages();
+    renderMessages(messagesRes.rows || []);
+  } catch (error) {
+    console.error('Failed to load messages:', error);
+    showStatus('Failed to load messages.', 'error');
+  }
+}
+
 updateDashboardDate();
 loadDashboardData();
+loadMessages();
 
 const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
@@ -177,6 +232,39 @@ if (addFlavorBtn && flavorInputs) {
 
     const group = button.closest('.flavor-group');
     if (group) group.remove();
+  });
+}
+
+if (messagesList) {
+  messagesList.addEventListener('click', async (event) => {
+    const deleteBtn = event.target.closest('.message-delete');
+    if (!deleteBtn) return;
+
+    const messageId = deleteBtn.dataset.id;
+    if (!messageId) return;
+
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = 'Deleting...';
+
+    try {
+      await tablesDb.deleteRow({
+        databaseId: import.meta.env.VITE_DATABASE_ID,
+        tableId: import.meta.env.VITE_TABLE_ID_MESSAGES,
+        rowId: messageId
+      });
+
+      const card = deleteBtn.closest('.message-card');
+      if (card) card.remove();
+      if (!messagesList.querySelector('.message-card')) {
+        messagesList.innerHTML = '<p class="messages-empty">No messages yet.</p>';
+      }
+      showStatus('Message deleted successfully.');
+    } catch (error) {
+      console.error('Failed to delete message:', error);
+      showStatus('Failed to delete message.', 'error');
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = 'Delete';
+    }
   });
 }
 
