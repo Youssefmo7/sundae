@@ -43,8 +43,11 @@ export async function HomeFunctions() {
 
   const dots = document.querySelectorAll(".dot")
 
+  const isRtl = document.documentElement.dir === 'rtl';
+
   function update() {
-    track.style.transform = `translateX(-${index * 100}%)`
+    const offset = index * 100;
+    track.style.transform = `translateX(${isRtl ? offset : -offset}%)`
     dots.forEach(d => d.classList.remove("active"))
     dots[index].classList.add("active")
   }
