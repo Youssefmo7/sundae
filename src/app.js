@@ -10,6 +10,7 @@ import { About } from './pages/About.js';
 import { tablesDb } from "./appwrite.js";
 import { Query } from "appwrite";
 import { ensureInitialData } from "./utils/dataCache.js";
+import { applyLang, getLang, setLang, t } from "./utils/i18n.js";
 
 // const products = await tablesDb.listRows({
 //   databaseId: import.meta.env.VITE_DATABASE_ID,
@@ -28,6 +29,7 @@ function getCurrentRoute() {
 
 
 export async function renderPage() {
+  applyLang();
   const route = getCurrentRoute();
   const root = document.getElementById('root');
 
@@ -86,10 +88,10 @@ export async function renderPage() {
         if (product) {
           appDiv.innerHTML = await Product({ product });
         } else {
-          appDiv.innerHTML = '<h1>Product not found</h1>';
+          appDiv.innerHTML = `<h1>${t('product.not_found')}</h1>`;
         }
       } else {
-        appDiv.innerHTML = '<h1>Page not found</h1>';
+        appDiv.innerHTML = `<h1>${t('app.page_not_found')}</h1>`;
       }
       break;
   }
@@ -121,3 +123,11 @@ export async function initApp() {
   await ensureInitialData();
   renderPage();
 }
+
+window.toggleLang = function() {
+  const current = getLang();
+  const next = current === 'en' ? 'ar' : 'en';
+  setLang(next);
+  applyLang();
+  renderPage();
+};

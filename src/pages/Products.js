@@ -3,6 +3,7 @@ import { Footer } from '../components/Footer.js';
 import { Card } from '../components/Card.js';
 import getProducts from '../utils/getProducts.js'
 import { getCachedCategories } from '../utils/dataCache.js';
+import { t } from '../utils/i18n.js';
 
 let currentPage = 1;
 const PAGE_SIZE = 12;
@@ -18,7 +19,7 @@ async function renderPage(n) {
   if (!cardsContainer) return;
 
   if (!pageItems.length) {
-    cardsContainer.innerHTML = '<p class="p-desc">No products match your search.</p>';
+    cardsContainer.innerHTML = `<p class="p-desc">${t('products.no_results')}</p>`;
     return;
   }
 
@@ -81,7 +82,7 @@ async function setupFilters() {
     const options = categories
       .map((cat) => `<option value="${cat.$id}">${cat.name || 'Category'}</option>`)
       .join('');
-    select.innerHTML = `<option value="all">All Categories</option>${options}`;
+    select.innerHTML = `<option value="all">${t('products.all_categories')}</option>${options}`;
   }
 
   const searchInput = document.getElementById('product-search');
@@ -113,18 +114,18 @@ export async function ProductsFunctions() {
 export function Products() {
   return `
     ${Header()}
-    <div class="products-banner"><p>Our Products</p><h6 class="path">Home / Products</h6></div>
+    <div class="products-banner"><p>${t('products.banner_title')}</p><h6 class="path">${t('products.path')}</h6></div>
     <div class="products">
-      <p class="chooseUrFav">Choose Your <span>Favourite</span></p>
+      <p class="chooseUrFav">${t('products.choose_prefix')} <span>${t('products.choose_highlight')}</span></p>
       <div class="container">
         <div class="products-controls">
           <div class="products-search">
-            <input id="product-search" type="text" placeholder="Search products..." />
+            <input id="product-search" type="text" placeholder="${t('products.search_placeholder')}" />
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
           <div class="products-filter">
             <select id="category-filter" aria-label="Filter by category">
-              <option value="all">All Categories</option>
+              <option value="all">${t('products.all_categories')}</option>
             </select>
           </div>
         </div>

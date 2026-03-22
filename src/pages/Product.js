@@ -4,6 +4,7 @@ import { Card } from '../components/Card.js';
 import { tablesDb } from '../appwrite.js';
 import { ID, Query } from 'appwrite';
 import { getCachedCategories, getCachedProducts } from '../utils/dataCache.js';
+import { t } from '../utils/i18n.js';
 
 async function getCategory(id) {
   const cached = await getCachedCategories();
@@ -93,8 +94,8 @@ export async function Product({ product }) {
     return `
       ${Header()}
       <div class="product-banner">
-        <p>Product not found</p>
-        <h6 class="path">Home / Products</h6>
+        <p>${t('product.not_found')}</p>
+        <h6 class="path">${t('product.path_products')}</h6>
       </div>
       ${Footer()}
     `;
@@ -120,7 +121,7 @@ export async function Product({ product }) {
           `;
         })
         .join('')
-    : '<div class="no-reviews">No flavor images available.</div>';
+    : `<div class="no-reviews">${t('product.no_flavor_images')}</div>`;
 
   const flavorsList = flavors.length
     ? `
@@ -130,12 +131,12 @@ export async function Product({ product }) {
           .join('')}
       </select>
     `
-    : '<p class="p-desc">No flavors available.</p>';
+    : `<p class="p-desc">${t('product.no_flavors')}</p>`;
 
   const relatedRes = await getRelated(product.$id);
   const relatedProducts = relatedRes.length
     ? relatedRes.map((item) => Card(item)).join('')
-    : '<p class="p-desc">No related products found.</p>';
+    : `<p class="p-desc">${t('product.no_related')}</p>`;
 
   setTimeout(() => {
     const mainPreviewImage = document.querySelector('.product-preview img');
@@ -192,7 +193,7 @@ export async function Product({ product }) {
       const reviews = res.rows;
 
       if (reviews.length === 0) {
-        reviewList.innerHTML = '<p class="no-reviews">No reviews yet. Be the first to review this product.</p>';
+        reviewList.innerHTML = `<p class="no-reviews">${t('product.no_reviews')}</p>`;
         return;
       }
 
@@ -240,7 +241,7 @@ export async function Product({ product }) {
 
       if (!reviewPayload.name || !reviewPayload.email || !reviewPayload.review) {
         if (reviewFeedback) {
-          reviewFeedback.textContent = 'Please fill all review fields.';
+        reviewFeedback.textContent = t('product.review_required');
           reviewFeedback.className = 'review-feedback error';
         }
         return;
@@ -248,7 +249,7 @@ export async function Product({ product }) {
 
       if (!Number.isInteger(ratingValue) || ratingValue < 1 || ratingValue > 5) {
         if (reviewFeedback) {
-          reviewFeedback.textContent = 'Please select a valid rating.';
+          reviewFeedback.textContent = t('product.rating_required');
           reviewFeedback.className = 'review-feedback error';
         }
         return;
@@ -263,7 +264,7 @@ export async function Product({ product }) {
         });
 
         if (reviewFeedback) {
-          reviewFeedback.textContent = 'Review submitted successfully.';
+          reviewFeedback.textContent = t('product.review_success');
           reviewFeedback.className = 'review-feedback success';
         }
 
@@ -271,7 +272,7 @@ export async function Product({ product }) {
         await renderReviews(product.$id);
       } catch (error) {
         if (reviewFeedback) {
-          reviewFeedback.textContent = 'Could not submit review. Please try again.';
+          reviewFeedback.textContent = t('product.review_error');
           reviewFeedback.className = 'review-feedback error';
         }
       }
@@ -285,7 +286,7 @@ export async function Product({ product }) {
     ${Header()}
     <div class="product-banner">
       <p>${escapeHtml(product.name)}</p>
-      <h6 class="path">Home / Products / ${escapeHtml(product.name)}</h6>
+      <h6 class="path">${t('product.path_prefix')} ${escapeHtml(product.name)}</h6>
     </div>
     <div class="background">
       <div class="product-page">
@@ -301,54 +302,54 @@ export async function Product({ product }) {
           <h2 id="product-name" class="p-name">${escapeHtml(mainName)}</h2>
           <h2 class="p-name">${priceLabel}</h2>
           <p id="product-description" class="p-desc">${escapeHtml(mainDesc)}</p>
-          <h2 class="p-name">Product Category:</h2>
+          <h2 class="p-name">${t('product.category')}</h2>
           <p class="p-desc">${escapeHtml(category?.name || '')}</p>
-          <h2 class="p-name">Product Flavors:</h2>
+          <h2 class="p-name">${t('product.flavors')}</h2>
           ${flavorsList}
         </div>
       </div>
 
       <section class="review-section container">
         <div class="review-form-box">
-          <h3>Write a Review</h3>
+          <h3>${t('product.write_review')}</h3>
           <form id="product-review-form" class="review-form">
             <div class="review-grid">
               <div class="input-container">
                 <input type="text" id="review-name" name="review-name" placeholder=" " required>
-                <label for="review-name">Name</label>
+                <label for="review-name">${t('product.name')}</label>
               </div>
               <div class="input-container">
                 <input type="email" id="review-email" name="review-email" placeholder=" " required>
-                <label for="review-email">Email</label>
+                <label for="review-email">${t('product.email')}</label>
               </div>
             </div>
             <div class="input-container">
               <select id="review-rating" name="review-rating" required>
-                <option value="">Select rating</option>
-                <option value="5">5 - Excellent</option>
-                <option value="4">4 - Very Good</option>
-                <option value="3">3 - Good</option>
-                <option value="2">2 - Fair</option>
-                <option value="1">1 - Poor</option>
+                <option value="">${t('product.select_rating')}</option>
+                <option value="5">${t('product.rating_5')}</option>
+                <option value="4">${t('product.rating_4')}</option>
+                <option value="3">${t('product.rating_3')}</option>
+                <option value="2">${t('product.rating_2')}</option>
+                <option value="1">${t('product.rating_1')}</option>
               </select>
-              <label for="review-rating" class="fixed-label">Rating</label>
+              <label for="review-rating" class="fixed-label">${t('product.rating')}</label>
             </div>
             <div class="input-container">
               <textarea id="review-message" name="review-message" rows="4" placeholder=" " required></textarea>
-              <label for="review-message">Review</label>
+              <label for="review-message">${t('product.review')}</label>
             </div>
-            <button type="submit" class="submit-review-btn">Submit Review</button>
+            <button type="submit" class="submit-review-btn">${t('product.submit_review')}</button>
           </form>
           <p id="review-feedback" class="review-feedback"></p>
         </div>
 
         <div class="review-list-box">
-          <h3>Customer Reviews</h3>
+          <h3>${t('product.customer_reviews')}</h3>
           <div id="reviews-list" class="reviews-list"></div>
         </div>
       </section>
 
-      <p class="chooseUrFav">Related <span>Products</span></p>
+      <p class="chooseUrFav">${t('product.related')} <span>${t('product.products')}</span></p>
       <div class="related-products">${relatedProducts}</div>
     </div>
     ${Footer()}

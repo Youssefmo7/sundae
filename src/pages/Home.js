@@ -12,6 +12,7 @@ import MainButton from "../components/MainButton.js";
 
 import getProducts from "../utils/getProducts.js";
 import { getCachedCategories } from "../utils/dataCache.js";
+import { t } from "../utils/i18n.js";
 
 const sliderImage = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183650/slider_1_dacxyu.png'
 const storyImage = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183614/Slider_2_lyrmle.png'
@@ -126,9 +127,9 @@ export function Home() {
     ${Header()}
     <div class="carousel">
       <div class="track">
-        <img src="${sliderImage}" alt="Slider Image 1">
-        <img src="${sliderImage}" alt="Slider Image 2">
-        <img src="${sliderImage}" alt="Slider Image 3">
+        <img src="${sliderImage}" alt="${t('home.products_title')} 1">
+        <img src="${sliderImage}" alt="${t('home.products_title')} 2">
+        <img src="${sliderImage}" alt="${t('home.products_title')} 3">
       </div>
 
       <button class="btn prev">‹</button>
@@ -141,19 +142,15 @@ export function Home() {
         <div class="container">
           <div class="story-info">
             <div class="left">
-              <h3>The story of Sundae Ice Cream</h3>
+              <h3>${t('home.story_title')}</h3>
               <p>
-                Established in April 2019, Pharma Click for Food Industries 
-                is a leading Egyptian company dedicated to redefining the 
-                ice cream experience. Under our flagship brand, Sundae, we 
-                combine passion with precision to deliver high-quality products 
-                that cater to the diverse tastes of the Egyptian and Arab markets.
+                ${t('home.story_p1')}
               </p>
               <p>
-                Our mission is simple: to provide a unique and happy consumer experience
+                ${t('home.story_p2')}
               </p>
             </div>
-            <div class="right"><img src="${storyImage}" alt="Our story" /></div>
+            <div class="right"><img src="${storyImage}" alt="${t('home.story_title')}" /></div>
           </div>
         </div>
       </div>
@@ -161,20 +158,19 @@ export function Home() {
         <div class="container">
           <div class="banner">
             <div class="left">
-              <img src="${figure}" alt="Ice cream figure" />
+              <img src="${figure}" alt="${t('home.banner_title')}" />
             </div>
             <div class="right">
               <h2>
-                Relive the Sweet
-                <br /> Memories of Classic
-                <br /> <span>Ice Creams</span>
+                ${t('home.banner_title')}
+                <br /> ${t('home.banner_title_2')}
+                <br /> <span>${t('home.banner_title_3')}</span>
               </h2>
               <p>
-                From rich chocolate fudge to creamy vanilla sundaes, discover
-                our menu of classic ice cream creations.
+                ${t('home.banner_desc')}
               </p>
               <a href="#/products" style="text-decoration: none">
-                ${MainButton("Explore Our Products")}
+                ${MainButton(t('home.explore'))}
               </a>
             </div>
           </div>
@@ -182,18 +178,18 @@ export function Home() {
       </div>
       <div class="categories">
         <div class="container">
-          <h2>Choose your favorite ice cream category</h2>
+          <h2>${t('home.categories_title')}</h2>
           <div class="categ-cards"></div>
         </div>
       </div>
       <div class="home-products">
         <div class="container">
-          <h2>Sundae Products</h2>
-          <p>Some Of Our Best Products</p>
+          <h2>${t('home.products_title')}</h2>
+          <p>${t('home.products_subtitle')}</p>
           <div class="home-products-cards"></div>
           <div style="display: flex; justify-content: center; margin-top: 24px;">
             <a href="#/products" style="text-decoration: none">
-              ${MainButton("View all Products")}
+              ${MainButton(t('home.view_all'))}
             </a>
           </div>
         </div>
@@ -201,8 +197,8 @@ export function Home() {
       <div class="follow-us">
         <div class="container">
           <div class="follow-images">
-            <h2>Follow Us on <a href="https://www.instagram.com/ice_cream_sundae0" target="_blank" style="font:inherit; text-decoration: none;"><span>Instagram</span></a></h2>
-            <p>Join our Instagram community for updates, special deals, and more!</p>
+            <h2>${t('home.follow_title')} <a href="https://www.instagram.com/ice_cream_sundae0" target="_blank" style="font:inherit; text-decoration: none;"><span>${t('home.follow_highlight')}</span></a></h2>
+            <p>${t('home.follow_desc')}</p>
             <div class="imgs">
               <div><img src="${followImage1}" alt="Instagram post 1" /></div>
               <div><img src="${followImage2}" alt="Instagram post 2" /></div>
