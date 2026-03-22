@@ -176,7 +176,7 @@ header ul li:hover, header ul li:focus {
     display: flex;
     flex-direction: column;
     background-color: var(--dark-blu);
-    right: -55%;
+    right: -100%;
     top: 0;
     z-index: 1;
     padding: 110px 20px;
