@@ -1,4 +1,6 @@
-import logo from '../assets/logo.png';
+// import logo from '../assets/logo.png';
+
+const logo = "https://res.cloudinary.com/debrtvbnc/image/upload/v1774183595/logo_jchsfg.png"
 
 export function Footer() {
   const year = new Date().getFullYear();

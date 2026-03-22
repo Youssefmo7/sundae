@@ -1,9 +1,13 @@
 
 import { Header } from '../components/Header.js';
 import { Footer } from '../components/Footer.js';
-import aboutStoryOne from '../assets/about1.png';
-import aboutStoryTwo from '../assets/about2.png';
-import aboutStoryThree from '../assets/about3.png';
+// import aboutStoryOne from '../assets/about1.png';
+// import aboutStoryTwo from '../assets/about2.png';
+// import aboutStoryThree from '../assets/about3.png';
+
+const aboutStoryOne = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183598/about1_qbin3h.png';
+const aboutStoryTwo = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183619/about2_mzfe2r.png';
+const aboutStoryThree = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183608/about3_ohc8n1.png';
 
 const statistics = [
   { value: '91+', label: 'Awards Win' },

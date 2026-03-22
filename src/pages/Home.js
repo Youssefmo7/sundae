@@ -1,18 +1,24 @@
 import { Header } from "../components/Header.js";
 import { Footer } from "../components/Footer.js";
 import { Card } from "../components/Card.js";
-
-import sliderImage from "../assets/slider 1.png";
-import storyImage from "../assets/Slider 2.png";
-import figure from "../assets/Figure.png";
-import followImage1 from "../assets/follow-image1.png";
-import followImage2 from "../assets/follow-image2.png";
-import followImage3 from "../assets/follow-image3.png";
 import MainButton from "../components/MainButton.js";
 
-import p1 from '../assets/p1.png'
+// import sliderImage from "../assets/slider 1.png";
+// import storyImage from "../assets/Slider 2.png";
+// import figure from "../assets/Figure.png";
+// import followImage1 from "../assets/follow-image1.png";
+// import followImage2 from "../assets/follow-image2.png";
+// import followImage3 from "../assets/follow-image3.png";
+
 import getProducts from "../utils/getProducts.js";
 import { getCachedCategories } from "../utils/dataCache.js";
+
+const sliderImage = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183650/slider_1_dacxyu.png'
+const storyImage = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183614/Slider_2_lyrmle.png'
+const figure = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183592/Figure_argyco.png'
+const followImage1 = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183588/follow-image1_omt0gb.png'
+const followImage2 = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183589/follow-image2_neqwwf.png'
+const followImage3 = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183594/follow-image3_wn6kbn.png'
 
 export async function HomeFunctions() {
   const carousel = document.querySelector(".carousel")
@@ -94,7 +100,7 @@ export async function HomeFunctions() {
     if (categories.length) {
       categoriesContainer.innerHTML = categories
         .map((category) => {
-          const image = category.image || p1;
+          const image = category.image || '';
           const name = category.name || 'Category';
           return `
             <div class="category-card">

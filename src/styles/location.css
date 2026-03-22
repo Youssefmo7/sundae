@@ -16,7 +16,8 @@
 }
 
 .location-background {
-    background-image: url(../assets/location-background.png);
+    /* background-image: url(../assets/location-background.png); */
+    background-image: url(https://res.cloudinary.com/debrtvbnc/image/upload/v1774183656/location-background_u8e7ox.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

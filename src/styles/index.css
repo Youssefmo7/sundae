@@ -39,7 +39,8 @@ img { width: 100%; }
 }
 
 .home-background {
-    background-image: url(../assets/home-background.png);
+    /* background-image: url(../assets/home-background.png); */
+    background-image: url(https://res.cloudinary.com/debrtvbnc/image/upload/v1774183671/home-background_ckepko.png);
 }
 
 .active {
