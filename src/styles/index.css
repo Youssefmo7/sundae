@@ -182,10 +182,17 @@ header ul li i {
 }
 
 html[dir="rtl"] header ul {
-  flex-direction: row-reverse;
+  direction: rtl;
+  /* flex-direction: row-reverse; */
+}
+
+html[dir="rtl"] header {
+  direction: ltr;
+  /* flex-direction: row-reverse; */
 }
 
 html[dir="rtl"] header ul li {
+  direction: rtl;
   margin-right: 0;
   margin-left: 16px;
 }
