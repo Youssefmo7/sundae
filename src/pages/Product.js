@@ -116,7 +116,7 @@ export async function Product({ product }) {
           const name = escapeHtml(flavor.name);
           return `
             <div class="image-box flavor-thumb" data-index="${index}" role="button" aria-label="Preview ${name}">
-              <img src="${imageUrl}" alt="${name}" />
+              <img src="${imageUrl}" alt="${name}" loading="lazy" decoding="async" />
             </div>
           `;
         })
@@ -284,6 +284,7 @@ export async function Product({ product }) {
 
   return `
     ${Header()}
+    <h1 class="sr-only">Sundae Ice Cream | صنداي آيس كريم | ${escapeHtml(mainName)}</h1>
     <div class="product-banner">
       <p>${escapeHtml(product.name)}</p>
       <h6 class="path">${t('product.path_prefix')} ${escapeHtml(product.name)}</h6>
@@ -292,7 +293,7 @@ export async function Product({ product }) {
       <div class="product-page">
         <div class="product-preview">
           <div class="d"></div>
-          <img src="${escapeHtml(mainImage)}" alt="${escapeHtml(mainName)}" />
+          <img src="${escapeHtml(mainImage)}" alt="${escapeHtml(mainName)}" loading="lazy" decoding="async" />
           <div class="flavors-images">
             ${flavorImages}
           </div>

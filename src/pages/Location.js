@@ -61,6 +61,7 @@ export function LocationFunctions() {
 export function Location() {
   return `
     ${Header()}
+    <h1 class="sr-only">Sundae Ice Cream | صنداي آيس كريم</h1>
     <div class="location-banner"><p>${t('location.title')}</p><h6 class="path">${t('location.path')}</h6></div>
     <div class="location-background">
       <div id="location-toast" class="location-toast" role="status" aria-live="polite"></div>

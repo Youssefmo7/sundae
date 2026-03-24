@@ -114,6 +114,7 @@ export async function ProductsFunctions() {
 export function Products() {
   return `
     ${Header()}
+    <h1 class="sr-only">Sundae Ice Cream | صنداي آيس كريم</h1>
     <div class="products-banner"><p>${t('products.banner_title')}</p><h6 class="path">${t('products.path')}</h6></div>
     <div class="products">
       <p class="chooseUrFav">${t('products.choose_prefix')} <span>${t('products.choose_highlight')}</span></p>

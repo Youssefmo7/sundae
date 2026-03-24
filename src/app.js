@@ -53,6 +53,19 @@ function setMeta({ title, description, route, type = "website" }) {
   if (twImage) twImage.setAttribute("content", OG_IMAGE);
 }
 
+function setJsonLd(data) {
+  const existing = document.getElementById("product-jsonld");
+  if (existing) {
+    existing.remove();
+  }
+  if (!data) return;
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.id = "product-jsonld";
+  script.text = JSON.stringify(data);
+  document.head.appendChild(script);
+}
+
 function setRouteMeta(route) {
   switch (route) {
     case "/":
@@ -118,20 +131,24 @@ export async function renderPage() {
       setRouteMeta(route);
       appDiv.innerHTML = Home();
       HomeFunctions();
+      setJsonLd(null);
       break;
     case '/products':
       setRouteMeta(route);
       appDiv.innerHTML = Products.Products();
       Products.ProductsFunctions();
+      setJsonLd(null);
       break;
     case '/location':
       setRouteMeta(route);
       appDiv.innerHTML = Location();
       LocationFunctions();
+      setJsonLd(null);
       break;
     case '/about':
       setRouteMeta(route);
       appDiv.innerHTML = About();
+      setJsonLd(null);
       break;
     default:
       // Check if it's a product route /product/:id
@@ -156,13 +173,27 @@ export async function renderPage() {
             route,
             type: "product"
           });
+          setJsonLd({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name || "Sundae Ice Cream",
+            "image": product.image ? [product.image] : [OG_IMAGE],
+            "description": desc,
+            "brand": {
+              "@type": "Brand",
+              "name": "Sundae Ice Cream"
+            },
+            "url": buildUrl(route)
+          });
           appDiv.innerHTML = await Product({ product });
         } else {
           setMeta({ title: t('product.not_found'), description: DEFAULT_DESC, route });
+          setJsonLd(null);
           appDiv.innerHTML = `<h1>${t('product.not_found')}</h1>`;
         }
       } else {
         setMeta({ title: t('app.page_not_found'), description: DEFAULT_DESC, route });
+        setJsonLd(null);
         appDiv.innerHTML = `<h1>${t('app.page_not_found')}</h1>`;
       }
       break;

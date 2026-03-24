@@ -111,7 +111,7 @@ export async function HomeFunctions() {
           return `
             <div class="category-card">
               <div class="category-image">
-                <img src="${image}" alt="${name}" />
+                <img src="${image}" alt="${name}" loading="lazy" decoding="async" />
               </div>
               <a class="category-btn" href="/products">
                 <span>${name}</span>
@@ -130,11 +130,12 @@ export async function HomeFunctions() {
 export function Home() {
   return `
     ${Header()}
+    <h1 class="sr-only">Sundae Ice Cream | صنداي آيس كريم</h1>
     <div class="carousel">
       <div class="track">
-        <img src="${sliderImage1}" alt="${t('home.products_title')} 1">
-        <img src="${sliderImage2}" alt="${t('home.products_title')} 2">
-        <img src="${sliderImage3}" alt="${t('home.products_title')} 3">
+        <img src="${sliderImage1}" alt="${t('home.products_title')} 1" loading="eager" decoding="async">
+        <img src="${sliderImage2}" alt="${t('home.products_title')} 2" loading="lazy" decoding="async">
+        <img src="${sliderImage3}" alt="${t('home.products_title')} 3" loading="lazy" decoding="async">
       </div>
 
       <button class="btn prev">‹</button>
@@ -155,7 +156,7 @@ export function Home() {
                 ${t('home.story_p2')}
               </p>
             </div>
-            <div class="right"><img src="${storyImage}" alt="${t('home.story_title')}" /></div>
+            <div class="right"><img src="${storyImage}" alt="${t('home.story_title')}" loading="lazy" decoding="async" /></div>
           </div>
         </div>
       </div>
@@ -163,7 +164,7 @@ export function Home() {
         <div class="container">
           <div class="banner">
             <div class="left">
-              <img src="${figure}" alt="${t('home.banner_title')}" />
+              <img src="${figure}" alt="${t('home.banner_title')}" loading="lazy" decoding="async" />
             </div>
             <div class="right">
               <h2>
@@ -205,9 +206,9 @@ export function Home() {
             <h2>${t('home.follow_title')} <a href="https://www.instagram.com/ice_cream_sundae0" target="_blank" style="font:inherit; text-decoration: none;"><span>${t('home.follow_highlight')}</span></a></h2>
             <p>${t('home.follow_desc')}</p>
             <div class="imgs">
-              <div><img src="${followImage1}" alt="Instagram post 1" /></div>
-              <div><img src="${followImage2}" alt="Instagram post 2" /></div>
-              <div><img src="${followImage3}" alt="Instagram post 3" /></div>
+              <div><img src="${followImage1}" alt="Instagram post 1" loading="lazy" decoding="async" /></div>
+              <div><img src="${followImage2}" alt="Instagram post 2" loading="lazy" decoding="async" /></div>
+              <div><img src="${followImage3}" alt="Instagram post 3" loading="lazy" decoding="async" /></div>
             </div>
           </div>
         </div>

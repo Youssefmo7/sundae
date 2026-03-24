@@ -43,7 +43,7 @@ export function About() {
     .map((block) => `
       <section class="about-story-row ${block.reverse ? 'reverse' : ''}">
         <div class="about-story-media ${block.imageShape}">
-          <img src="${block.image}" alt="${block.title}" />
+          <img src="${block.image}" alt="${block.title}" loading="lazy" decoding="async" />
         </div>
         <div class="about-story-copy">
           <h2>${block.title}</h2>
@@ -67,6 +67,7 @@ export function About() {
 
   return `
     ${Header()}
+    <h1 class="sr-only">Sundae Ice Cream | صنداي آيس كريم</h1>
     <section class="about-hero home-background">
       <div class="about-hero-inner">
         <h1>${t('about.title')}</h1>
