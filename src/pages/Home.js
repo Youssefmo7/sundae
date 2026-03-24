@@ -113,7 +113,7 @@ export async function HomeFunctions() {
               <div class="category-image">
                 <img src="${image}" alt="${name}" />
               </div>
-              <a class="category-btn" href="#/products">
+              <a class="category-btn" href="/products">
                 <span>${name}</span>
                 <i class="fa-solid fa-arrow-right-long"></i>
               </a>
@@ -174,7 +174,7 @@ export function Home() {
               <p>
                 ${t('home.banner_desc')}
               </p>
-              <a href="#/products" style="text-decoration: none">
+              <a href="/products" style="text-decoration: none">
                 ${MainButton(t('home.explore'))}
               </a>
             </div>
@@ -193,7 +193,7 @@ export function Home() {
           <p>${t('home.products_subtitle')}</p>
           <div class="home-products-cards"></div>
           <div style="display: flex; justify-content: center; margin-top: 24px;">
-            <a href="#/products" style="text-decoration: none">
+            <a href="/products" style="text-decoration: none">
               ${MainButton(t('home.view_all'))}
             </a>
           </div>

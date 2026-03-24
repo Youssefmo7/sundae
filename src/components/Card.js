@@ -5,7 +5,7 @@ export function Card(product) {
       <img src="${product.image}" alt="${product.name}" />
       <h3>${product.name}</h3>
       <p>${product.slogan}</p>
-      <a href="#/products/${product.$id}"><button>View</button></a>
+      <a href="/products/${product.$id}"><button>View</button></a>
     </div>
   `;
 }

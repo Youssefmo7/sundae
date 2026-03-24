@@ -19,7 +19,7 @@ const OG_IMAGE = "https://res.cloudinary.com/debrtvbnc/image/upload/v1774183595/
 
 function buildUrl(route) {
   if (!route || route === "/") return BASE_URL;
-  return `${BASE_URL}#${route}`;
+  return `${BASE_URL}${route}`;
 }
 
 function setMeta({ title, description, route, type = "website" }) {
@@ -83,9 +83,7 @@ function setRouteMeta(route) {
 
 // Simple router
 function getCurrentRoute() {
-  const path = window.location.pathname;
-  const hash = window.location.hash.substring(1);
-  return hash || path;
+  return window.location.pathname || "/";
 }
 
 
@@ -176,19 +174,23 @@ export async function renderPage() {
 
 // Handle navigation
 function addNavigationListeners() {
-  // Handle link clicks
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
+  // Handle link clicks for internal navigation
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') {
+      return;
+    }
     link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const href = link.getAttribute('href');
-      window.location.hash = href;
-      renderPage();
+      if (href.startsWith('/')) {
+        e.preventDefault();
+        window.history.pushState({}, '', href);
+        renderPage();
+      }
     });
   });
 
   // Handle browser back/forward
   window.addEventListener('popstate', renderPage);
-  window.addEventListener('hashchange', renderPage);
 }
 
 

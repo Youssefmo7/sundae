@@ -11,7 +11,7 @@ export function Footer() {
       <div class="social">
         <div class="info">
           <div class="logo">
-            <a href="#/"><img src="${logo}" alt="Sundae logo" /></a>
+            <a href="/"><img src="${logo}" alt="Sundae logo" /></a>
           </div>
           <p>${t('footer.desc')}</p>
         </div>
