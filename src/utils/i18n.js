@@ -196,7 +196,7 @@ const translations = {
 };
 
 export function getLang() {
-  return localStorage.getItem(STORAGE_KEY) || 'en';
+  return localStorage.getItem(STORAGE_KEY) || 'ar';
 }
 
 export function setLang(lang) {
