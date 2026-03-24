@@ -14,8 +14,8 @@ export function Header() {
         <li><a href="#/about"><i class="fa-solid fa-circle-info"></i>${t('nav.about')}</a></li>
         <li><a href="#/products"><i class="fa-brands fa-product-hunt"></i>${t('nav.products')}</a></li>
         <li><a href="#/location"><i class="fa-solid fa-location-dot"></i>${t('nav.location')}</a></li>
+        <li class="lang-item"><button class="lang-switch" type="button" onclick="window.toggleLang()">${switchLabel}</button></li>
       </ul>
-      <button class="lang-switch" type="button" onclick="window.toggleLang()">${switchLabel}</button>
       <div class="burger-menu" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></div>
     </header>
   `;

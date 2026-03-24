@@ -165,31 +165,36 @@ header ul li i {
   margin-right: 12px;
 }
 
+.lang-item {
+  margin-left: 8px;
+}
+
 .lang-switch {
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, rgba(127, 209, 246, 0.35), rgba(255, 255, 255, 0.1));
   color: #fff;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
-  margin-right: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   transition: 0.2s ease;
 }
 
 .lang-switch:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-html[dir="rtl"] header ul {
-  direction: rtl;
-  /* flex-direction: row-reverse; */
+  background: rgba(127, 209, 246, 0.25);
 }
 
 html[dir="rtl"] header {
   direction: ltr;
   /* flex-direction: row-reverse; */
 }
+
+/* html[dir="rtl"] header ul {
+  flex-direction: row-reverse;
+  direction: rtl;
+} */
 
 html[dir="rtl"] header ul li {
   direction: rtl;
@@ -204,8 +209,13 @@ html[dir="rtl"] header ul li i {
 
 html[dir="rtl"] .lang-switch {
   margin-right: 0;
-  margin-left: 12px;
+  margin-left: 0;
 }
+
+/* html[dir="rtl"] .lang-item {
+  margin-left: 0;
+  margin-right: 8px;
+} */
 
 html[dir="rtl"] .products-search i {
   right: auto;
@@ -238,6 +248,13 @@ header ul li:hover, header ul li:focus {
         margin-bottom: 10px;
         width: 100%;
     }
+  }
+  .lang-item {
+    margin-left: 0;
+  }
+  .lang-switch {
+    width: 100%;
+    text-align: center;
   }
   .burger-menu {
     display: flex;

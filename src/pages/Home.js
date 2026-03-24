@@ -14,7 +14,9 @@ import getProducts from "../utils/getProducts.js";
 import { getCachedCategories } from "../utils/dataCache.js";
 import { t } from "../utils/i18n.js";
 
-const sliderImage = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183650/slider_1_dacxyu.png'
+const sliderImage1 = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183650/slider_1_dacxyu.png'
+const sliderImage2 = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774371808/slider2_smwjb6.png'
+const sliderImage3 = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774371878/slider3_vip6dn.png'
 const storyImage = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183614/Slider_2_lyrmle.png'
 const figure = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183592/Figure_argyco.png'
 const followImage1 = 'https://res.cloudinary.com/debrtvbnc/image/upload/v1774183588/follow-image1_omt0gb.png'
@@ -130,9 +132,9 @@ export function Home() {
     ${Header()}
     <div class="carousel">
       <div class="track">
-        <img src="${sliderImage}" alt="${t('home.products_title')} 1">
-        <img src="${sliderImage}" alt="${t('home.products_title')} 2">
-        <img src="${sliderImage}" alt="${t('home.products_title')} 3">
+        <img src="${sliderImage1}" alt="${t('home.products_title')} 1">
+        <img src="${sliderImage2}" alt="${t('home.products_title')} 2">
+        <img src="${sliderImage3}" alt="${t('home.products_title')} 3">
       </div>
 
       <button class="btn prev">‹</button>

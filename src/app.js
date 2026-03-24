@@ -12,6 +12,67 @@ import { Query } from "appwrite";
 import { ensureInitialData } from "./utils/dataCache.js";
 import { applyLang, getLang, setLang, t } from "./utils/i18n.js";
 
+const BASE_URL = "https://sundaeice.com/";
+const DEFAULT_TITLE = "Sundae Ice Cream";
+const DEFAULT_DESC = "Sundae Ice Cream offers delicious ice cream flavors crafted with premium ingredients.";
+const OG_IMAGE = "https://res.cloudinary.com/debrtvbnc/image/upload/v1774183595/logo_jchsfg.png";
+
+function buildUrl(route) {
+  if (!route || route === "/") return BASE_URL;
+  return `${BASE_URL}#${route}`;
+}
+
+function setMeta({ title, description, route, type = "website" }) {
+  const metaTitle = title || DEFAULT_TITLE;
+  const metaDesc = description || DEFAULT_DESC;
+  const url = buildUrl(route);
+
+  document.title = metaTitle;
+  const descTag = document.querySelector('meta[name="description"]');
+  if (descTag) descTag.setAttribute("content", metaDesc);
+
+  const canonical = document.getElementById("canonical-link");
+  if (canonical) canonical.setAttribute("href", url);
+
+  const ogTitle = document.getElementById("og-title");
+  const ogDesc = document.getElementById("og-description");
+  const ogType = document.getElementById("og-type");
+  const ogUrl = document.getElementById("og-url");
+  const ogImage = document.getElementById("og-image");
+  if (ogTitle) ogTitle.setAttribute("content", metaTitle);
+  if (ogDesc) ogDesc.setAttribute("content", metaDesc);
+  if (ogType) ogType.setAttribute("content", type);
+  if (ogUrl) ogUrl.setAttribute("content", url);
+  if (ogImage) ogImage.setAttribute("content", OG_IMAGE);
+
+  const twTitle = document.getElementById("twitter-title");
+  const twDesc = document.getElementById("twitter-description");
+  const twImage = document.getElementById("twitter-image");
+  if (twTitle) twTitle.setAttribute("content", metaTitle);
+  if (twDesc) twDesc.setAttribute("content", metaDesc);
+  if (twImage) twImage.setAttribute("content", OG_IMAGE);
+}
+
+function setRouteMeta(route) {
+  switch (route) {
+    case "/":
+      setMeta({ title: "Sundae Ice Cream", description: DEFAULT_DESC, route });
+      break;
+    case "/products":
+      setMeta({ title: "Products | Sundae Ice Cream", description: "Browse our full range of ice cream products and flavors.", route });
+      break;
+    case "/about":
+      setMeta({ title: "About Us | Sundae Ice Cream", description: "Learn about Sundae Ice Cream, our story, and our commitment to quality.", route });
+      break;
+    case "/location":
+      setMeta({ title: "Our Location | Sundae Ice Cream", description: "Get in touch with Sundae Ice Cream and find our location.", route });
+      break;
+    default:
+      setMeta({ title: DEFAULT_TITLE, description: DEFAULT_DESC, route });
+      break;
+  }
+}
+
 // const products = await tablesDb.listRows({
 //   databaseId: import.meta.env.VITE_DATABASE_ID,
 //   tableId: import.meta.env.VITE_TABLE_ID_PRODUCTS,
@@ -56,18 +117,22 @@ export async function renderPage() {
   // Route to appropriate component
   switch (route) {
     case '/':
+      setRouteMeta(route);
       appDiv.innerHTML = Home();
       HomeFunctions();
       break;
     case '/products':
+      setRouteMeta(route);
       appDiv.innerHTML = Products.Products();
       Products.ProductsFunctions();
       break;
     case '/location':
+      setRouteMeta(route);
       appDiv.innerHTML = Location();
       LocationFunctions();
       break;
     case '/about':
+      setRouteMeta(route);
       appDiv.innerHTML = About();
       break;
     default:
@@ -86,11 +151,20 @@ export async function renderPage() {
         });
         product = product.rows[0];
         if (product) {
+          const desc = product.slogan || product.description || DEFAULT_DESC;
+          setMeta({
+            title: `${product.name} | Sundae Ice Cream`,
+            description: desc,
+            route,
+            type: "product"
+          });
           appDiv.innerHTML = await Product({ product });
         } else {
+          setMeta({ title: t('product.not_found'), description: DEFAULT_DESC, route });
           appDiv.innerHTML = `<h1>${t('product.not_found')}</h1>`;
         }
       } else {
+        setMeta({ title: t('app.page_not_found'), description: DEFAULT_DESC, route });
         appDiv.innerHTML = `<h1>${t('app.page_not_found')}</h1>`;
       }
       break;
