@@ -952,6 +952,9 @@ footer .social {
   }
 }
 
+html[dir="ltr"] .whatsappNums {
+  font-size: 14px;
+}
 .whatsappNums {
   display: none;
   justify-content: center;
