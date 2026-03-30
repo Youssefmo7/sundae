@@ -938,10 +938,10 @@ footer .social {
   align-items: center;
   position: fixed;
   bottom: 2%;
-  right: 1%;
+  right: 8px;
   width: 50px;
   height: 50px;
-  padding: 32px;
+  padding: 30px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 100;
@@ -958,7 +958,7 @@ footer .social {
   align-items: center;
   position: fixed;
   bottom: 1%;
-  right: calc(1% + 84px);
+  right: 88px;
   padding: 0px;
   border-radius: 12px;
   cursor: pointer;
