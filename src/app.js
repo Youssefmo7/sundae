@@ -11,6 +11,7 @@ import { tablesDb } from "./appwrite.js";
 import { Query } from "appwrite";
 import { ensureInitialData } from "./utils/dataCache.js";
 import { applyLang, getLang, setLang, t } from "./utils/i18n.js";
+import { Whatsapp } from "./components/WhatsappChat.js";
 
 const BASE_URL = "https://sundaeice.com/";
 const DEFAULT_TITLE = "Sundae Ice Cream";
@@ -129,25 +130,25 @@ export async function renderPage() {
   switch (route) {
     case '/':
       setRouteMeta(route);
-      appDiv.innerHTML = Home();
+      appDiv.innerHTML = Home() + Whatsapp();
       HomeFunctions();
       setJsonLd(null);
       break;
     case '/products':
       setRouteMeta(route);
-      appDiv.innerHTML = Products.Products();
+      appDiv.innerHTML = Products.Products() + Whatsapp();
       Products.ProductsFunctions();
       setJsonLd(null);
       break;
     case '/location':
       setRouteMeta(route);
-      appDiv.innerHTML = Location();
+      appDiv.innerHTML = Location() + Whatsapp();
       LocationFunctions();
       setJsonLd(null);
       break;
     case '/about':
       setRouteMeta(route);
-      appDiv.innerHTML = About();
+      appDiv.innerHTML = About() + Whatsapp();
       setJsonLd(null);
       break;
     default:
@@ -185,16 +186,16 @@ export async function renderPage() {
             },
             "url": buildUrl(route)
           });
-          appDiv.innerHTML = await Product({ product });
+          appDiv.innerHTML = await Product({ product }) + Whatsapp();
         } else {
           setMeta({ title: t('product.not_found'), description: DEFAULT_DESC, route });
           setJsonLd(null);
-          appDiv.innerHTML = `<h1>${t('product.not_found')}</h1>`;
+          appDiv.innerHTML = `<h1>${t('product.not_found')}</h1>` + Whatsapp();
         }
       } else {
         setMeta({ title: t('app.page_not_found'), description: DEFAULT_DESC, route });
         setJsonLd(null);
-        appDiv.innerHTML = `<h1>${t('app.page_not_found')}</h1>`;
+        appDiv.innerHTML = `<h1>${t('app.page_not_found')}</h1>` + Whatsapp();
       }
       break;
   }

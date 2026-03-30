@@ -95,7 +95,10 @@ const translations = {
     'footer.follow': 'Follow Us',
     'footer.customer_service': 'Customer Service',
     'footer.sales_service': 'Sales Customer Service',
-    'footer.complaints_service': 'Complaints Customer Service'
+    'footer.complaints_service': 'Complaints Customer Service',
+
+    'whatsapp.no1': 'Sales Customer Service',
+    'whatsapp.no2': 'Complaints Customer Service'
   },
   ar: {
     'nav.home': 'الرئيسية',
@@ -191,7 +194,10 @@ const translations = {
     'footer.follow': 'تابعنا',
     'footer.customer_service': 'خدمة العملاء',
     'footer.sales_service': 'خدمة عملاء المبيعات',
-    'footer.complaints_service': 'خدمة عملاء الشكاوى'
+    'footer.complaints_service': 'خدمة عملاء الشكاوى',
+
+    'whatsapp.no1': 'خدمة عملاء المبيعات',
+    'whatsapp.no2': 'خدمة عملاء الشكاوى'
   }
 };
 

@@ -930,3 +930,83 @@ footer .social {
 }
 
 /*------------------------------------- Footer -------------------------------------*/
+/*------------------------------------- whatsapp -----------------------------------*/
+
+.whatsapp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 4%;
+  right: 1%;
+  width: 50px;
+  height: 50px;
+  padding: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 100;
+  background-color: #25d366;
+  i {
+    font-size: 45px;
+    color: white;
+  }
+}
+
+.whatsappNums {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 3%;
+  right: 5rem;
+  padding: 0px;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 100;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #c7debc;
+  white-space: nowrap;
+  border: 1px solid #72dd41;
+  text-decoration: none;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+  li {
+    padding: 8px;
+    list-style: none;
+    font-weight: bolder;
+    
+  }
+  li:first-child {
+    border-bottom: 1px solid #86957f;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+  }
+  li:last-child {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+  li:hover {
+    background-color: #87977f;
+  }
+}
+.whatsappNums::after {
+  content: "";
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  right: -28px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid #c7debc;
+  border-right: 12px solid transparent;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+}
+.showWhatsappNums {
+  display: flex;
+}
+/*------------------------------------- whatsapp -----------------------------------*/
